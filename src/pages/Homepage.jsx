@@ -714,7 +714,7 @@ function Homepage({ session }) {
                       onClick={() => handleAffiliateClick(product.id)}
                       className="w-full bg-black hover:bg-gray-800 text-white text-[9px] sm:text-xs py-1.5 sm:py-2 rounded font-medium transition-all duration-200"
                     >
-                      Lihat di Shopee
+                      Klick Link
                     </button>
                   </div>
                 </div>
