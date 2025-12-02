@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dailyfinds-six.vercel.app/sitemap.xml
