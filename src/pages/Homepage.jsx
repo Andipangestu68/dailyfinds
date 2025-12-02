@@ -369,7 +369,387 @@
 
 // export default Homepage;
 
+// // export default Homepage;
+// import { useState, useEffect } from 'react';
+// import { supabase, getUserRole } from '../lib/supabase';
+// import { useNavigate } from 'react-router-dom';
+
+// import icon from '../assets/logo.png';
+
+// const API_URL = import.meta.env.VITE_API_URL;
+
+// function Homepage({ session }) {
+//   const navigate = useNavigate();
+//   const [products, setProducts] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [filters, setFilters] = useState({
+//     name: '',
+//     code: '',
+//     category: ''
+//   });
+//   const [categories, setCategories] = useState([]);
+//   const [userRole, setUserRole] = useState(null);
+
+//   useEffect(() => {
+//     fetchCategories();
+//     fetchProducts();
+//     if (session) {
+//       getUserRole().then(setUserRole);
+//     }
+//   }, [session]);
+
+//   // Realtime filter effect
+//   useEffect(() => {
+//     const timeoutId = setTimeout(() => {
+//       fetchProducts();
+//     }, 300); // Debounce 300ms
+
+//     return () => clearTimeout(timeoutId);
+//   }, [filters.name, filters.code, filters.category]);
+
+//   const fetchCategories = async () => {
+//     try {
+//       const response = await fetch(`${API_URL}/api/categories`);
+//       const result = await response.json();
+//       if (result.success) {
+//         setCategories(result.data);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching categories:', error);
+//     }
+//   };
+
+//   const fetchProducts = async () => {
+//     setLoading(true);
+//     try {
+//       const params = new URLSearchParams();
+//       if (filters.name) params.append('name', filters.name);
+//       if (filters.code) params.append('code', filters.code);
+//       if (filters.category) params.append('category', filters.category);
+
+//       const response = await fetch(`${API_URL}/api/products?${params}`);
+//       const result = await response.json();
+      
+//       if (result.success) {
+//         setProducts(result.data);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching products:', error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleFilterChange = (key, value) => {
+//     setFilters(prev => ({ ...prev, [key]: value }));
+//   };
+
+//   const handleReset = () => {
+//     setFilters({ name: '', code: '', category: '' });
+//     setTimeout(() => {
+//       fetchProducts();
+//     }, 100);
+//   };
+
+//   const handleLogout = async () => {
+//     await supabase.auth.signOut();
+//     window.location.reload();
+//   };
+
+//   const handleAffiliateClick = (productId) => {
+//     window.open(`${API_URL}/api/click/${productId}`, '_blank');
+//   };
+
+//   return (
+//     // Background diubah menjadi putih bersih/abu-abu netral
+//     <div className="min-h-screen bg-white text-gray-900 font-sans">
+//       {/* Header - Sticky & Minimalist Black/White */}
+//       <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/90 border-b border-gray-200 shadow-sm">
+//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//           <div className="flex justify-between items-center h-16">
+//             {/* Logo & Brand */}
+//             <div className="flex items-center gap-2 sm:gap-3">
+//               {/* Logo Icon */}
+//               <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gray-50">
+//                 <img src={icon} alt="DailyFinds Icon" className="w-full h-full object-contain grayscale" />
+//               </div>
+//               {/* Brand Name */}
+//               <div>
+//                 <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-black tracking-tight leading-none">
+//                   DailyFinds.id
+//                 </h1>
+//                 <p className="hidden sm:block text-[10px] sm:text-xs text-gray-500 font-medium">
+//                   Mitra Terpercaya Anda
+//                 </p>
+//               </div>
+//             </div>
+
+//             {/* Navigation */}
+//             <div className="flex gap-2 sm:gap-3 items-center">
+//               {session && (
+//                 <>
+//                   <span className="hidden sm:inline-block text-xs sm:text-sm text-gray-600 font-medium">
+//                     {session.user.email.split('@')[0]} {userRole === 'admin' && '• Admin'}
+//                   </span>
+//                   {userRole === 'admin' && (
+//                     <button
+//                       onClick={() => navigate('/admin')}
+//                       className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-black bg-white border border-black rounded-lg hover:bg-gray-100 transition-all duration-200"
+//                     >
+//                       Admin
+//                     </button>
+//                   )}
+//                   <button
+//                     onClick={handleLogout}
+//                     className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-200"
+//                   >
+//                     Keluar
+//                   </button>
+//                 </>
+//               )}
+//               {!session && (
+//                 <button
+//                   onClick={() => navigate('/login')}
+//                   className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-200"
+//                 >
+//                   Masuk
+//                 </button>
+//               )}
+//             </div>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* Hero Section */}
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-4 sm:pb-6">
+//         <div className="text-center">
+//           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2 sm:mb-3">
+//             Temukan Produk Menarik
+//           </h2>
+//           <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto mb-2">
+//             Temukan penawaran terbaik dari semua Markerplace dengan koleksi pilihan kami
+//           </p>
+//           <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-gray-500">
+//             {/* Icons changed to black/gray */}
+//             <div className="flex items-center gap-1">
+//               <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+//                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+//               </svg>
+//               <span>Produk Berkualitas</span>
+//             </div>
+//             <span className="text-gray-300">•</span>
+//             <div className="flex items-center gap-1">
+//               <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+//                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+//               </svg>
+//               <span>Penjual Terverifikasi</span>
+//             </div>
+//             <span className="text-gray-300 hidden sm:inline">•</span>
+//             <div className="hidden sm:flex items-center gap-1">
+//               <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+//                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+//               </svg>
+//               <span>Pengiriman Cepat</span>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Search Section - Monochrome Styles */}
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+//         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4 sm:p-6 lg:p-8">
+//           <div className="flex items-center gap-2 mb-4 sm:mb-6">
+//             <svg className="w-5 h-5 sm:w-6 sm:h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//             </svg>
+//             <h2 className="text-lg sm:text-xl font-semibold text-black">
+//               Cari Produk
+//             </h2>
+//           </div>
+          
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+//             {/* Product Name Search */}
+//             <div className="group">
+//               <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+//                 Nama Produk
+//               </label>
+//               <input
+//                 type="text"
+//                 value={filters.name}
+//                 onChange={(e) => handleFilterChange('name', e.target.value)}
+//                 placeholder="Cari berdasarkan nama..."
+//                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-gray-200 focus:outline-none transition-all duration-200"
+//               />
+//             </div>
+
+//             {/* Product Code Search */}
+//             <div className="group">
+//               <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+//                 Kode Produk
+//               </label>
+//               <input
+//                 type="text"
+//                 value={filters.code}
+//                 onChange={(e) => handleFilterChange('code', e.target.value)}
+//                 placeholder="Cari kode..."
+//                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-gray-200 focus:outline-none transition-all duration-200"
+//               />
+//             </div>
+
+//             {/* Category Filter */}
+//             <div className="group sm:col-span-2 lg:col-span-1">
+//               <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+//                 Kategori
+//               </label>
+//               <select
+//                 value={filters.category}
+//                 onChange={(e) => handleFilterChange('category', e.target.value)}
+//                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-gray-200 focus:outline-none transition-all duration-200 cursor-pointer"
+//               >
+//                 <option value="">Semua Kategori</option>
+//                 {categories.map((cat) => (
+//                   <option key={cat} value={cat}>{cat}</option>
+//                 ))}
+//               </select>
+//             </div>
+//           </div>
+
+//           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
+//             <button 
+//               onClick={handleReset} 
+//               className="px-5 py-2.5 text-sm font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-black transition-all duration-200"
+//             >
+//               Reset Filter
+//             </button>
+//             <div className="text-xs sm:text-sm text-gray-500 flex items-center gap-2">
+//               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+//               </svg>
+//               <span>Filter diterapkan otomatis</span>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Products Grid */}
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+//         {loading ? (
+//           <div className="text-center py-16 sm:py-20">
+//             <div className="inline-block animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-4 border-gray-300 border-t-black mb-4"></div>
+//             <div className="text-lg sm:text-xl font-medium text-gray-600">Memuat produk...</div>
+//           </div>
+//         ) : products.length === 0 ? (
+//           <div className="text-center py-16 sm:py-20">
+//             <div className="text-4xl sm:text-5xl mb-4 text-gray-300">📦</div>
+//             <div className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Produk tidak ditemukan</div>
+//             <p className="text-sm sm:text-base text-gray-500">Coba sesuaikan filter Anda</p>
+//           </div>
+//         ) : (
+//           <>
+//             <div className="mb-4 sm:mb-6">
+//               <h3 className="text-base sm:text-lg font-semibold text-gray-700">
+//                 {products.length} Produk Ditemukan
+//               </h3>
+//             </div>
+            
+//             {/* MODIFIED GRID: 
+//                 grid-cols-3 pada mobile (default), 
+//                 sm:grid-cols-4 (tablet small), 
+//                 lg:grid-cols-5 (desktop)
+//             */}
+//             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 lg:gap-5">
+//               {products.map((product) => (
+//                 <div 
+//                   key={product.id} 
+//                   className="group bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-gray-400 transition-all duration-300"
+//                 >
+//                   <div className="aspect-square bg-gray-50 relative overflow-hidden">
+//                     {product.image_url ? (
+//                       <img
+//                         src={product.image_url}
+//                         alt={product.name}
+//                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+//                       />
+//                     ) : (
+//                       <div className="w-full h-full flex items-center justify-center">
+//                         <span className="text-gray-300 text-3xl sm:text-5xl">📦</span>
+//                       </div>
+//                     )}
+//                     {/* Badge Hitam Putih */}
+//                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-black/80 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[10px] font-medium">
+//                       {product.click_count} klik
+//                     </div>
+//                   </div>
+                  
+//                   {/* Padding card diperkecil untuk mengakomodasi 3 kolom di mobile */}
+//                   <div className="p-2 sm:p-3 lg:p-4">
+//                     <div className="mb-1 sm:mb-2">
+//                       <span className="inline-block bg-gray-100 text-gray-700 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-medium border border-gray-200">
+//                         {product.category}
+//                       </span>
+//                     </div>
+                    
+//                     {/* Ukuran font diperkecil untuk mobile */}
+//                     <h3 className="font-semibold text-[10px] sm:text-xs lg:text-sm text-black mb-1 line-clamp-2 leading-snug">
+//                       {product.name}
+//                     </h3>
+                    
+//                     <p className="text-[9px] sm:text-[10px] text-gray-500 mb-1">
+//                       Kode: {product.product_code}
+//                     </p>
+                    
+//                     {product.description && (
+//                       <p className="hidden sm:block text-[10px] sm:text-xs text-gray-600 mb-2 line-clamp-2 leading-relaxed">
+//                         {product.description}
+//                       </p>
+//                     )}
+                    
+//                     {product.price && (
+//                       <p className="text-xs sm:text-sm lg:text-base font-bold text-black mb-2">
+//                         Rp {Number(product.price).toLocaleString('id-ID')}
+//                       </p>
+//                     )}
+                    
+//                     <button
+//                       onClick={() => handleAffiliateClick(product.id)}
+//                       className="w-full bg-black hover:bg-gray-800 text-white text-[9px] sm:text-xs py-1.5 sm:py-2 rounded font-medium transition-all duration-200"
+//                     >
+//                       Klick Link
+//                     </button>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </>
+//         )}
+//       </div>
+
+//       {/* Footer - Solid Black */}
+//       <footer className="bg-black text-white py-6 sm:py-8 mt-8 sm:mt-12">
+//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//           <div className="text-center mb-4">
+//             <div className="flex items-center justify-center gap-2 mb-2">
+//               {/* Icon Footer Black/White style */}
+//               <div className="flex items-center justify-center w-8 h-8 bg-white rounded-lg">
+//                 <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+//                 </svg>
+//               </div>
+//               <span className="text-lg font-bold text-white">DailyFinds.id</span>
+//             </div>
+//             <p className="text-xs sm:text-sm text-gray-400">Mitra Terpercaya Anda untuk Produk Berkualitas</p>
+//           </div>
+//           <div className="text-center border-t border-gray-800 pt-4">
+//             <p className="text-xs sm:text-sm text-gray-500">&copy; 2024 DailyFinds.id Catalog. Hak Cipta Dilindungi.</p>
+//           </div>
+//         </div>
+//       </footer>
+//     </div>
+//   );
+// }
+
 // export default Homepage;
+
 import { useState, useEffect } from 'react';
 import { supabase, getUserRole } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
@@ -461,7 +841,6 @@ function Homepage({ session }) {
   };
 
   return (
-    // Background diubah menjadi putih bersih/abu-abu netral
     <div className="min-h-screen bg-white text-gray-900 font-sans">
       {/* Header - Sticky & Minimalist Black/White */}
       <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/90 border-b border-gray-200 shadow-sm">
@@ -520,36 +899,52 @@ function Homepage({ session }) {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section - Enhanced */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-4 sm:pb-6">
         <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2 sm:mb-3">
-            Temukan Produk Menarik
+          {/* Badge/Label */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-gray-100 to-gray-50 border border-gray-200 rounded-full px-4 py-2 mb-4">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700">Ribuan produk pilihan tersedia!</span>
+          </div>
+
+          {/* Main Headline */}
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-black mb-3 sm:mb-4 leading-tight">
+            Belanja Cerdas,
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+              Hemat Maksimal! 💰
+            </span>
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto mb-2">
-            Temukan penawaran terbaik dari semua Markerplace dengan koleksi pilihan kami
+          
+          {/* Subheadline */}
+          <p className="text-sm sm:text-base lg:text-xl text-gray-600 max-w-3xl mx-auto mb-4 sm:mb-6 leading-relaxed">
+            Temukan <span className="font-semibold text-black">penawaran terbaik</span> dari berbagai marketplace dalam satu tempat. 
+            <span className="hidden sm:inline"> Belanja mudah, cepat, dan aman!</span>
           </p>
-          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-gray-500">
-            {/* Icons changed to black/gray */}
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+
+          {/* Trust Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm">
+            <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-100">
+              <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span>Produk Berkualitas</span>
+              <div className="text-left">
+                <div className="font-bold text-black">100% Original</div>
+                <div className="text-[10px] text-gray-500">Produk Terjamin</div>
+              </div>
             </div>
-            <span className="text-gray-300">•</span>
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+            
+            <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-100">
+              <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span>Penjual Terverifikasi</span>
-            </div>
-            <span className="text-gray-300 hidden sm:inline">•</span>
-            <div className="hidden sm:flex items-center gap-1">
-              <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Pengiriman Cepat</span>
+              <div className="text-left">
+                <div className="font-bold text-black">Penjual Verified</div>
+                <div className="text-[10px] text-gray-500">Terpercaya & Aman</div>
+              </div>
             </div>
           </div>
         </div>
@@ -652,11 +1047,6 @@ function Homepage({ session }) {
               </h3>
             </div>
             
-            {/* MODIFIED GRID: 
-                grid-cols-3 pada mobile (default), 
-                sm:grid-cols-4 (tablet small), 
-                lg:grid-cols-5 (desktop)
-            */}
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 lg:gap-5">
               {products.map((product) => (
                 <div 
@@ -675,13 +1065,11 @@ function Homepage({ session }) {
                         <span className="text-gray-300 text-3xl sm:text-5xl">📦</span>
                       </div>
                     )}
-                    {/* Badge Hitam Putih */}
                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-black/80 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[10px] font-medium">
                       {product.click_count} klik
                     </div>
                   </div>
                   
-                  {/* Padding card diperkecil untuk mengakomodasi 3 kolom di mobile */}
                   <div className="p-2 sm:p-3 lg:p-4">
                     <div className="mb-1 sm:mb-2">
                       <span className="inline-block bg-gray-100 text-gray-700 text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-medium border border-gray-200">
@@ -689,7 +1077,6 @@ function Homepage({ session }) {
                       </span>
                     </div>
                     
-                    {/* Ukuran font diperkecil untuk mobile */}
                     <h3 className="font-semibold text-[10px] sm:text-xs lg:text-sm text-black mb-1 line-clamp-2 leading-snug">
                       {product.name}
                     </h3>
@@ -699,7 +1086,7 @@ function Homepage({ session }) {
                     </p>
                     
                     {product.description && (
-                      <p className="hidden sm:block text-[10px] sm:text-xs text-gray-600 mb-2 line-clamp-2 leading-relaxed">
+                      <p className="text-[9px] sm:text-[10px] lg:text-xs text-gray-600 mb-1.5 sm:mb-2 line-clamp-2 leading-relaxed">
                         {product.description}
                       </p>
                     )}
@@ -724,23 +1111,103 @@ function Homepage({ session }) {
         )}
       </div>
 
-      {/* Footer - Solid Black */}
-      <footer className="bg-black text-white py-6 sm:py-8 mt-8 sm:mt-12">
+      {/* Footer - Enhanced Design */}
+      <footer className="bg-gradient-to-b from-gray-900 to-black text-white py-8 sm:py-12 mt-12 sm:mt-16 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              {/* Icon Footer Black/White style */}
-              <div className="flex items-center justify-center w-8 h-8 bg-white rounded-lg">
-                <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand Section */}
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white">
+                  <img src={icon} alt="DailyFinds Icon" className="w-full h-full object-contain" />
+                </div>
+                <span className="text-xl font-bold text-white">DailyFinds.id</span>
               </div>
-              <span className="text-lg font-bold text-white">DailyFinds.id</span>
+              <p className="text-sm text-gray-400 leading-relaxed mb-3">
+                Mitra terpercaya Anda untuk menemukan produk berkualitas dengan harga terbaik dari berbagai marketplace.
+              </p>
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                {/* Social Media Icons */}
+                <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  </svg>
+                </a>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-gray-400">Mitra Terpercaya Anda untuk Produk Berkualitas</p>
+
+            {/* Quick Links */}
+            <div className="text-center md:text-left">
+              <h3 className="text-base font-bold text-white mb-4">Tautan Cepat</h3>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors duration-200">Tentang Kami</a></li>
+                <li><a href="#" className="hover:text-white transition-colors duration-200">Cara Belanja</a></li>
+                <li><a href="#" className="hover:text-white transition-colors duration-200">Syarat & Ketentuan</a></li>
+                <li><a href="#" className="hover:text-white transition-colors duration-200">Kebijakan Privasi</a></li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="text-center md:text-left">
+              <h3 className="text-base font-bold text-white mb-4">Hubungi Kami</h3>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li className="flex items-center justify-center md:justify-start gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span>info@dailyfinds.id</span>
+                </li>
+                <li className="flex items-center justify-center md:justify-start gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span>+62 812-3456-7890</span>
+                </li>
+                <li className="flex items-center justify-center md:justify-start gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Semarang, Indonesia</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="text-center border-t border-gray-800 pt-4">
-            <p className="text-xs sm:text-sm text-gray-500">&copy; 2024 DailyFinds.id Catalog. Hak Cipta Dilindungi.</p>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-800 pt-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-xs sm:text-sm text-gray-500 text-center md:text-left">
+                &copy; 2024 DailyFinds.id. Semua hak cipta dilindungi.
+              </p>
+              <div className="flex items-center gap-4 text-xs sm:text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>Aman & Terpercaya</span>
+                </span>
+                <span className="text-gray-700">|</span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  <span>Support 24/7</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
