@@ -915,7 +915,7 @@ function Homepage({ session }) {
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-black mb-3 sm:mb-4 leading-tight">
             Belanja Cerdas,
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-900 to-black">
-              Hemat Maksimal! 💰
+              Hemat Maksimal!
             </span>
           </h2>
           
