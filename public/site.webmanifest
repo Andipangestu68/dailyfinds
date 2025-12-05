@@ -1,35 +1,19 @@
 {
-  "name": "DailyFinds.id - Belanja Online Terpercaya",
+  "name": "DailyFinds.id",
   "short_name": "DailyFinds",
-  "description": "Platform rekomendasi produk online terbaik di Indonesia dengan harga terjangkau",
-  "start_url": "/",
-  "scope": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
-  "orientation": "portrait-primary",
-  "dir": "ltr",
-  "lang": "id-ID",
   "icons": [
     {
-      "src": "/logohead.png",
+      "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/logohead.png",
+      "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "categories": ["shopping", "lifestyle", "business"],
-  "screenshots": [
-    {
-      "src": "/og-image.png",
-      "sizes": "1200x630",
       "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
