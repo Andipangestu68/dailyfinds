@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
   <url>
     <loc>https://dailyfinds-six.vercel.app/</loc>
-    <priority>1.00</priority>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://dailyfinds-six.vercel.app/" />
   </url>
+  
+  <!-- Login Page (Lower priority) -->
+  <url>
+    <loc>https://dailyfinds-six.vercel.app/login</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Add more URLs as you create pages -->
+  <!-- Example: Product categories, blog posts, etc. -->
+  
+  <!--
+  <url>
+    <loc>https://dailyfinds-six.vercel.app/products/fashion</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://dailyfinds-six.vercel.app/products/gadget</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  -->
+  
 </urlset>

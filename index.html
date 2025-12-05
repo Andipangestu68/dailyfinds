@@ -1,13 +1,12 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" href="/src/assets/logohead.png" /> -->
+ 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DailyFinds.id - Temukan Produk Terbaik Setiap Hari</title>
 
 
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" sizes="32x32" href="/public/logohead.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/public/logohead.png" />
     <link rel="apple-touch-icon" href="/public/logohead.png" />
@@ -17,14 +16,266 @@
     <meta name="description" content="Temukan rekomendasi produk unik, menarik, dan trending setiap hari hanya di DailyFinds.">
     <meta name="keywords" content="dailyfinds, rekomendasi produk, katalog produk, shopee affiliate">
 
-    <!-- SEO -->
+
     <meta name="description" content="DailyFinds.id membantu Anda menemukan produk terbaik setiap hari.">
     <meta name="google-site-verification" content="dShgmwx_NYjoLrPpYHXXUl1-a07teGNuWynKNY39ang" />
 
-    <!-- OG -->
     <meta property="og:image" content="/og-image.png" />
   </head>
   <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html> -->
+
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- PRIMARY META TAGS -->
+    <title>DailyFinds.id - Belanja Online Murah, Rekomendasi Produk Terbaik & Berkualitas</title>
+    <meta name="title" content="DailyFinds.id - Belanja Online Murah, Rekomendasi Produk Terbaik & Berkualitas" />
+    <meta name="description" content="Temukan rekomendasi produk fashion, gadget, skincare, dan kebutuhan sehari-hari dengan harga terjangkau. Gratis ongkir, produk berkualitas, trusted seller. Belanja cerdas di DailyFinds.id!" />
+    <meta name="keywords" content="dailyfinds, dailyfinds.id, belanja online murah, rekomendasi produk, katalog produk, shopee affiliate, fashion murah, kaos oversize, boxy tshirt, celana cargo, gadget murah, powerbank, skincare murah, skincare BPOM, kebutuhan harian, gratis ongkir, produk viral, trending product, online shop terpercaya, belanja hemat, produk berkualitas, marketplace indonesia, jual beli online, fashion pria, fashion wanita, totebag murah, aksesoris murah, tas murah, sepatu murah, home decor aesthetic, perlengkapan rumah, kitchen tools, stationery lucu, ootd pria, ootd wanita, style kekinian, streetwear indonesia" />
+    <meta name="author" content="DailyFinds.id" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="Indonesian" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- CANONICAL URL -->
+    <link rel="canonical" href="https://dailyfinds-six.vercel.app/" />
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/logohead.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/logohead.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logohead.png" />
+    <link rel="shortcut icon" href="/logohead.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="msapplication-TileImage" content="/logohead.png" />
+    
+    <!-- OPEN GRAPH / FACEBOOK -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dailyfinds-six.vercel.app/" />
+    <meta property="og:title" content="DailyFinds.id - Belanja Online Murah, Rekomendasi Produk Terbaik" />
+    <meta property="og:description" content="Temukan rekomendasi produk fashion, gadget, skincare, dan kebutuhan sehari-hari dengan harga terjangkau. Gratis ongkir, produk berkualitas, trusted seller!" />
+    <meta property="og:image" content="https://dailyfinds-six.vercel.app/og-image.png" />
+    <meta property="og:image:secure_url" content="https://dailyfinds-six.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DailyFinds.id - Belanja Online Terpercaya" />
+    <meta property="og:site_name" content="DailyFinds.id" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+    
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://dailyfinds-six.vercel.app/" />
+    <meta name="twitter:site" content="@dailyfindsid" />
+    <meta name="twitter:title" content="DailyFinds.id - Belanja Online Murah, Rekomendasi Produk Terbaik" />
+    <meta name="twitter:description" content="Temukan rekomendasi produk fashion, gadget, skincare, dan kebutuhan sehari-hari dengan harga terjangkau. Gratis ongkir, produk berkualitas!" />
+    <meta name="twitter:image" content="https://dailyfinds-six.vercel.app/og-image.png" />
+    <meta name="twitter:creator" content="@dailyfindsid" />
+    
+    <!-- GOOGLE SITE VERIFICATION -->
+    <meta name="google-site-verification" content="dShgmwx_NYjoLrPpYHXXUl1-a07teGNuWynKNY39ang" />
+    
+    <!-- BING WEBMASTER VERIFICATION (Optional - Daftar di Bing Webmaster Tools) -->
+    <!-- <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" /> -->
+    
+    <!-- STRUCTURED DATA / SCHEMA.ORG (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DailyFinds.id",
+      "alternateName": ["Daily Finds Indonesia", "DailyFinds", "Daily Finds ID"],
+      "url": "https://dailyfinds-six.vercel.app/",
+      "description": "Platform belanja online terpercaya dengan rekomendasi produk fashion, gadget, skincare, dan kebutuhan sehari-hari dengan harga terjangkau. Gratis ongkir dan produk berkualitas.",
+      "inLanguage": "id-ID",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://dailyfinds-six.vercel.app/?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "DailyFinds.id",
+      "legalName": "DailyFinds Indonesia",
+      "url": "https://dailyfinds-six.vercel.app/",
+      "logo": "https://dailyfinds-six.vercel.app/logohead.png",
+      "description": "Platform rekomendasi produk online terpercaya di Indonesia dengan harga terjangkau dan kualitas terjamin",
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://www.instagram.com/dailyfindsid",
+        "https://www.tiktok.com/@dailyfindsid",
+        "https://www.facebook.com/dailyfindsid",
+        "https://twitter.com/dailyfindsid",
+        "https://www.youtube.com/@dailyfindsid"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+62-812-3456-7890",
+        "contactType": "Customer Service",
+        "areaServed": "ID",
+        "availableLanguage": ["Indonesian", "English"],
+        "contactOption": "TollFree"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jakarta",
+        "addressRegion": "DKI Jakarta",
+        "addressCountry": "ID"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "OnlineStore",
+      "name": "DailyFinds.id",
+      "image": "https://dailyfinds-six.vercel.app/logohead.png",
+      "description": "Toko online terpercaya menjual fashion pria & wanita, gadget, skincare, dan kebutuhan harian dengan harga murah dan berkualitas",
+      "url": "https://dailyfinds-six.vercel.app/",
+      "telephone": "+62-812-3456-7890",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jakarta",
+        "addressRegion": "DKI Jakarta",
+        "addressCountry": "ID"
+      },
+      "priceRange": "Rp 10.000 - Rp 1.000.000",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "E-Wallet", "Bank Transfer"],
+      "currenciesAccepted": "IDR"
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dailyfinds-six.vercel.app/"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- PRECONNECT FOR PERFORMANCE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    
+    <!-- DNS PREFETCH -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    
+    <!-- GEO TAGS -->
+    <meta name="geo.region" content="ID-JK" />
+    <meta name="geo.placename" content="Jakarta, Indonesia" />
+    <meta name="geo.position" content="-6.200000;106.816666" />
+    <meta name="ICBM" content="-6.200000, 106.816666" />
+    
+    <!-- MOBILE WEB APP -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DailyFinds.id" />
+    <meta name="application-name" content="DailyFinds.id" />
+    
+    <!-- MICROSOFT TILE -->
+    <meta name="msapplication-tooltip" content="DailyFinds.id - Belanja Online Terpercaya" />
+    <meta name="msapplication-starturl" content="https://dailyfinds-six.vercel.app/" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    
+    <!-- ALTERNATE LANGUAGES (Optional) -->
+    <link rel="alternate" hreflang="id" href="https://dailyfinds-six.vercel.app/" />
+    <link rel="alternate" hreflang="x-default" href="https://dailyfinds-six.vercel.app/" />
+    
+    <!-- GOOGLE ANALYTICS (Ganti G-XXXXXXXXXX dengan ID Anda) -->
+    <!-- Uncomment setelah dapat tracking ID dari Google Analytics -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', {
+        'page_title': document.title,
+        'page_location': window.location.href,
+        'page_path': window.location.pathname
+      });
+    </script>
+    -->
+    
+    <!-- FACEBOOK PIXEL (Optional) -->
+    <!--
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    -->
+    
+  </head>
+  <body>
+    <!-- NoScript Warning -->
+    <noscript>
+      <div style="padding: 20px; background: #fff3cd; border: 1px solid #ffc107; text-align: center;">
+        <strong>JavaScript Disabled!</strong> Website ini memerlukan JavaScript untuk berfungsi dengan baik. Silakan aktifkan JavaScript di browser Anda.
+      </div>
+    </noscript>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
