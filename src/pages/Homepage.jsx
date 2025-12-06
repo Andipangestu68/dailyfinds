@@ -1579,7 +1579,7 @@ function Homepage({ session }) {
                       </div>
                     )}
                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-black/80 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[10px] font-medium">
-                      🔥 {product.click_count}
+                      👁️ {product.click_count}
                     </div>
                   </div>
                   
